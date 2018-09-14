@@ -57,8 +57,8 @@ for (name,experienceLevel) in  playerDictionaryExperience {
 //Sort and store players into three teams: Sharks, Dragons and Raptors such that each team has the same number of experienced players
 
 var teamSharks : [String] = []
-var teamRaptors : [String] = []
 var teamDragons : [String] = []
+var teamRaptors : [String] = []
 
 n = 0
 
@@ -77,6 +77,87 @@ repeat {
     else {teamRaptors.append(inexperiencedPlayers[n])}
     n+=1
     } while n < inexperiencedPlayers.count
+
+//Calculate average height of each team
+
+let numberOfPlayersPerTeam : Double = Double ((teamSharks.count + teamDragons.count + teamRaptors.count)/3)
+
+var teamSharksHeight : [Int] = []
+var teamDragonsHeight : [Int] = []
+var teamRaptorsHeight : [Int] = []
+
+var teamSharksTotalHeight : Double = 0
+var teamDragonsTotalHeight : Double = 0
+var teamRaptorsTotalHeight : Double = 0
+
+for player in teamSharks {
+    let a : String? = playerDictionaryHeight[player]
+    let b : Double? = Double(a!)
+    teamSharksTotalHeight = teamSharksTotalHeight + b!
+}
+
+for player in teamDragons {
+    let c : String? = playerDictionaryHeight[player]
+    let d : Double? = Double(c!)
+    teamDragonsTotalHeight = teamDragonsTotalHeight + d!
+}
+
+for player in teamRaptors {
+    let e : String? = playerDictionaryHeight[player]
+    let f : Double? = Double(e!)
+    teamRaptorsTotalHeight = teamRaptorsTotalHeight + f!
+}
+
+print(teamSharksTotalHeight)
+print(teamDragonsTotalHeight)
+print(teamRaptorsTotalHeight)
+
+//Restrucure teams such that the average heights are within 1.5
+
+var constraintSatisfied : Int = 0
+
+while constraintSatisfied < 1 {
+
+    teamSharks.append(teamDragons[0])
+    teamDragons.append(teamRaptors[0])
+    teamRaptors.append(teamSharks[0])
+
+    teamSharks.remove(at:0)
+    teamDragons.remove(at:0)
+    teamRaptors.remove(at:0)
+
+    teamSharksTotalHeight=0
+    teamDragonsTotalHeight=0
+    teamRaptorsTotalHeight=0
+
+    for player in teamSharks {
+        let g : String? = playerDictionaryHeight[player]
+        let h : Double? = Double(g!)
+        teamSharksTotalHeight = teamSharksTotalHeight + h!
+    }
+    
+    for player in teamDragons {
+        let i : String? = playerDictionaryHeight[player]
+        let j : Double? = Double(i!)
+        teamDragonsTotalHeight = teamDragonsTotalHeight + j!
+    }
+    
+    for player in teamRaptors {
+        let k : String? = playerDictionaryHeight[player]
+        let l : Double? = Double(k!)
+        teamRaptorsTotalHeight = teamRaptorsTotalHeight + l!
+    }
+    
+    if (teamSharksTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) {constraintSatisfied = 0}
+    else { constraintSatisfied = 1}
+}
+    
+    print(teamSharksTotalHeight)
+    print(teamDragonsTotalHeight)
+    print(teamRaptorsTotalHeight)
+
+
+
 
 
 
