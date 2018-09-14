@@ -1,6 +1,6 @@
 // Project aim is to divide the 18 children who have signed up for the league into three even teams — Dragons, Sharks, and Raptors
 
-// Step 1a - Manually create a single collection named 'players' that contains all information for all 18 players
+// Manually create a single collection named 'players' that contains all information for all 18 players
 
 let players : [String] = ["Joe Smith", "42", "Yes", "Jim and Jan Smith",
                           "Jill Taner", "36", "Yes", "Clara Tanner",
@@ -21,32 +21,62 @@ let players : [String] = ["Joe Smith", "42", "Yes", "Jim and Jan Smith",
                             "Les Clay", "42", "Yes", "Wynonna Brown",
                             "Herschel Krustofski", "45", "Yes", "Hyman and Rachel Krutofski"]
 
-//Step 1b - represent each player by a Dictionary with String keys and the corresponding values.
+// Represent each player by a Dictionary with String keys and the corresponding values.
 
 var n: Int = 0
 
 let numberOfPlayers = players.count / 4
 
-var playerDictionary : [String: String] = [:]
+var playerDictionaryHeight : [String: String] = [:]
+var playerDictionaryExperience : [String: String] = [:]
+var playerDictionaryGuardians : [String: String] = [:]
 
-
-    repeat{
+repeat{
+    
     let playerName = players[n]
    
-    playerDictionary["\(playerName) name"] =  players[n]
-    playerDictionary["\(playerName) height"] =  players[n+1]
-    playerDictionary["\(playerName) experience"] =  players[n+2]
-    playerDictionary["\(playerName) guardians"] =  players[n+3]
+    playerDictionaryHeight["\(playerName)"] =  players[n+1]
+    playerDictionaryExperience["\(playerName)"] =  players[n+2]
+    playerDictionaryGuardians["\(playerName)"] =  players[n+3]
 
-    n += 4} while n < numberOfPlayers*4
+    n += 4
     
-
-    
-    for codes in playerDictionary {
-        print("code: \(codes)")
-    }
+    } while n < numberOfPlayers*4
 
 
+//Sort experienced players from inexperienced players
+
+var experiencedPlayers : [String] = []
+var inexperiencedPlayers : [String] = []
+
+for (name,experienceLevel) in  playerDictionaryExperience {
+    if experienceLevel == "Yes" {experiencedPlayers.append(name)}
+        else {inexperiencedPlayers.append(name)}
+}
+
+//Sort and store players into three teams: Sharks, Dragons and Raptors such that each team has the same number of experienced players
+
+var teamSharks : [String] = []
+var teamRaptors : [String] = []
+var teamDragons : [String] = []
+
+n = 0
+
+repeat {
+    if n % 3 == 0 {teamSharks.append(experiencedPlayers[n])}
+    else if n % 3 == 1 {teamDragons.append(experiencedPlayers[n])}
+    else {teamRaptors.append(experiencedPlayers[n])}
+    n+=1
+    } while n < experiencedPlayers.count
+
+n = 0
+
+repeat {
+    if n % 3 == 0 {teamSharks.append(inexperiencedPlayers[n])}
+    else if n % 3 == 1 {teamDragons.append(inexperiencedPlayers[n])}
+    else {teamRaptors.append(inexperiencedPlayers[n])}
+    n+=1
+    } while n < inexperiencedPlayers.count
 
 
 
