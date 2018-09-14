@@ -11,7 +11,7 @@ let players : [String] = ["Joe Smith", "42", "Yes", "Jim and Jan Smith",
                             "Sammy Adams", "45", "No", "Jeff Adams",
                             "Karl Saygan", "42", "Yes", "Heather Bledsoe",
                             "Suzane Greenberg", "44", "Yes", "Henrietta Dumas",
-                             "Sal Dali", "41", "No", "Gala Dali",
+                             "Sal Dali", "41", "No", "Sal Dali",
                              "Joe Kavalier", "39", "No", "Sam and Elaine Kavalier",
                              "Ben Finkelstein", "44", "No", "Aaron and Jill Finkelstein",
                             "Diego Soto", "41", "Yes", "Robin and Sarika Soto",
@@ -42,7 +42,6 @@ repeat{
     n += 4
     
     } while n < numberOfPlayers*4
-
 
 //Sort experienced players from inexperienced players
 
@@ -108,10 +107,6 @@ for player in teamRaptors {
     teamRaptorsTotalHeight = teamRaptorsTotalHeight + f!
 }
 
-print(teamSharksTotalHeight)
-print(teamDragonsTotalHeight)
-print(teamRaptorsTotalHeight)
-
 //Restrucure teams such that the average heights are within 1.5
 
 var constraintSatisfied : Int = 0
@@ -147,17 +142,40 @@ while constraintSatisfied < 1 {
         let l : Double? = Double(k!)
         teamRaptorsTotalHeight = teamRaptorsTotalHeight + l!
     }
+
     
     if (teamSharksTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) {constraintSatisfied = 0}
     else { constraintSatisfied = 1}
 }
     
-    print(teamSharksTotalHeight)
-    print(teamDragonsTotalHeight)
-    print(teamRaptorsTotalHeight)
+//Generate personalised letters to each of the guardians
 
+var letters : [String] = []
 
+func lettergeneratorfor(player: String!, guardians: String!, teamName: String!, teamPracticeDateAndTime: String!) -> String {
+    let letter = """
+                Hello, \(guardians!)!
+                Just a quick note to let you know that \(player!) has been selected to play in the \(teamName!) soccer team.
+                Team \(teamName!)'s next practice is at \(teamPracticeDateAndTime!).
+                Please let me know if you need anything else.
+                Best wishes, Soccer team manager"
+                """
+    print(letter)
+    letters.append(letter)
+    return letter
+}
 
+for player in teamSharks {
+    let guardians = playerDictionaryGuardians[player]
+    lettergeneratorfor(player : player, guardians: guardians, teamName: "Sharks",teamPracticeDateAndTime : "3pm on 17 March")
+}
 
+for player in teamDragons {
+    let guardians = playerDictionaryGuardians[player]
+    lettergeneratorfor(player : player, guardians: guardians, teamName: "Dragons",teamPracticeDateAndTime : "1pm on 17 March")
+}
 
-
+for player in teamRaptors {
+    let guardians = playerDictionaryGuardians[player]
+    lettergeneratorfor(player : player, guardians: guardians, teamName: "Raptors",teamPracticeDateAndTime : "1pm on 18 March")
+}
