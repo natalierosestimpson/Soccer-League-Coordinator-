@@ -21,7 +21,7 @@ let players : [String] = ["Joe Smith", "42", "Yes", "Jim and Jan Smith",
                             "Les Clay", "42", "Yes", "Wynonna Brown",
                             "Herschel Krustofski", "45", "Yes", "Hyman and Rachel Krutofski"]
 
-// Represent each player by a Dictionary with String keys and the corresponding values.
+// Represent each player using dictionaries with String keys and the corresponding values
 
 var n: Int = 0
 
@@ -147,7 +147,25 @@ while constraintSatisfied < 1 {
     if (teamSharksTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) {constraintSatisfied = 0}
     else { constraintSatisfied = 1}
 }
-    
+
+//Print average height of the players of each team
+
+var averageHeightSharks : Double = teamSharksTotalHeight/numberOfPlayersPerTeam
+var averageHeightDragons : Double = teamDragonsTotalHeight/numberOfPlayersPerTeam
+var averageHeightRaptors : Double = teamRaptorsTotalHeight/numberOfPlayersPerTeam
+
+func averageHeightsFinal() -> String {
+    let data = """
+                The average height of players on team Sharks is \(averageHeightSharks)
+                The average height of players on team Dragons is \(averageHeightDragons)
+                The average height of players on team Raptors is \(averageHeightRaptors)
+                """
+    print(data)
+    return data
+    }
+
+averageHeightsFinal()
+
 //Generate personalised letters to each of the guardians
 
 var letters : [String] = []
