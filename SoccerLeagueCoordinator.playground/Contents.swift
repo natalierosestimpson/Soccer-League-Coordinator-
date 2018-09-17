@@ -2,151 +2,113 @@
 
 // Manually create a single collection named 'players' that contains all information for all 18 players
 
-let players : [String] = ["Joe Smith", "42", "Yes", "Jim and Jan Smith",
-                          "Jill Taner", "36", "Yes", "Clara Tanner",
-                          "Bill Bon", "43", "Yes", "Sara and Jenny Bon",
-                          "Eva Gordon", "45", "No", "Wendy and Mike Gordon",
-                            "Matt Gill", "40", "No", "Charles and Sylvia Gill",
-                            "Kimmy Stein", "41", "No", "Bill and Hillary Stein",
-                            "Sammy Adams", "45", "No", "Jeff Adams",
-                            "Karl Saygan", "42", "Yes", "Heather Bledsoe",
-                            "Suzane Greenberg", "44", "Yes", "Henrietta Dumas",
-                             "Sal Dali", "41", "No", "Sal Dali",
-                             "Joe Kavalier", "39", "No", "Sam and Elaine Kavalier",
-                             "Ben Finkelstein", "44", "No", "Aaron and Jill Finkelstein",
-                            "Diego Soto", "41", "Yes", "Robin and Sarika Soto",
-                            "Chloe Alaska", "47", "No", "David and Jamie Alaska",
-                            "Arnold Willis", "43", "No", "Claire Willis",
-                            "Philip Helm", "44", "Yes", "Thomas Helm and Eva Jones",
-                            "Les Clay", "42", "Yes", "Wynonna Brown",
-                            "Herschel Krustofski", "45", "Yes", "Hyman and Rachel Krutofski"]
-
-// Represent each player using dictionaries with String keys and the corresponding values
-
-var n: Int = 0
-
-let numberOfPlayers = players.count / 4
-
-var playerDictionaryHeight : [String: String] = [:]
-var playerDictionaryExperience : [String: String] = [:]
-var playerDictionaryGuardians : [String: String] = [:]
-
-repeat{
-    
-    let playerName = players[n]
-   
-    playerDictionaryHeight["\(playerName)"] =  players[n+1]
-    playerDictionaryExperience["\(playerName)"] =  players[n+2]
-    playerDictionaryGuardians["\(playerName)"] =  players[n+3]
-
-    n += 4
-    
-    } while n < numberOfPlayers*4
+let players : [[String: Any]] = [["name": "Joe Smith", "height": 42, "experience": true, "guardians":  "Jim and Jan Smith"],
+                                ["name": "Jill Taner", "height": 36, "experience": true, "guardians":  "Clara Tanner"],
+                                ["name": "Bill Bon", "height": 43, "experience": true, "guardians": "Sara and Jenny Bon"],
+                                ["name": "Eva Gordon", "height": 45, "experience": false, "guardians": "Wendy and Mike Gordon"],
+                                ["name": "Matt Gill", "height": 40, "experience": false, "guardians": "Charles and Sylvia Gill"],
+                                ["name": "Kimmy Stein", "height": 41, "experience": false, "guardians": "Bill and Hillary Stein"],
+                                ["name": "Sammy Adams", "height": 45, "experience": false, "guardians": "Jeff Adams"],
+                                ["name": "Karl Saygan", "height": 42, "experience": true, "guardians": "Heather Bledsoe"],
+                                ["name": "Suzane Greenberg", "height": 44, "experience": true, "guardians": "Henrietta Dumas"],
+                                ["name": "Sal Dali", "height": 41, "experience": false, "guardians": "Sal Dali"],
+                                ["name": "Joe Kavalier", "height": 39, "experience": false, "guardians": "Sam and Elaine Kavalier"],
+                                ["name": "Ben Finkelstein", "height": 44, "experience": false, "guardians": "Aaron and Jill Finkelstein"],
+                                ["name": "Diego Soto", "height": 41, "experience": true, "guardians": "Robin and Sarika Soto"],
+                                ["name": "Chloe Alaska", "height": 47, "experience": false, "guardians": "David and Jamie Alaska"],
+                                ["name": "Arnold Willis", "height": 43, "experience": false, "guardians": "Claire Willis"],
+                                ["name": "Philip Helm", "height": 44, "experience": true, "guardians": "Thomas Helm and Eva Jones"],
+                                ["name": "Les Clay", "height": 42, "experience": true, "guardians": "Wynonna Brown"],
+                                ["name": "Herschel Krustofski", "height": 45, "experience": true, "guardians": "Hyman and Rachel Krutofski"]]
 
 //Sort experienced players from inexperienced players
 
-var experiencedPlayers : [String] = []
-var inexperiencedPlayers : [String] = []
+var experiencedPlayers : [[String : Any]] = []
+var inexperiencedPlayers : [[String : Any ]] = []
 
-for (name,experienceLevel) in  playerDictionaryExperience {
-    if experienceLevel == "Yes" {experiencedPlayers.append(name)}
-        else {inexperiencedPlayers.append(name)}
+ for index in 0..<players.count{
+    let playerExperience : Bool = players[index]["experience"] as! Bool
+
+    if (playerExperience) {experiencedPlayers.append(players[index])}
+    else {inexperiencedPlayers.append(players[index])}
 }
 
+ 
 //Sort and store players into three teams: Sharks, Dragons and Raptors such that each team has the same number of experienced players
 
-var teamSharks : [String] = []
-var teamDragons : [String] = []
-var teamRaptors : [String] = []
+var teamSharks : [[[String: Any]]] = [[],[]]
+var teamDragons : [[[String: Any]]] = [[],[]]
+var teamRaptors : [[[String: Any]]] = [[],[]]
 
-n = 0
+for index in 0..<experiencedPlayers.count {
+    if index % 3 == 0 {teamSharks[0].append(experiencedPlayers[index])}
+ else if index % 3 == 1 {teamDragons[0].append(experiencedPlayers[index])}
+    else {teamRaptors[0].append(experiencedPlayers[index])}
+    }
+ 
+for index in 0..<inexperiencedPlayers.count {
+    if index % 3 == 0 {teamSharks[1].append(inexperiencedPlayers[index])}
+    else if index % 3 == 1 {teamDragons[1].append(inexperiencedPlayers[index])}
+    else {teamRaptors[1].append(inexperiencedPlayers[index])}
+    }
 
-repeat {
-    if n % 3 == 0 {teamSharks.append(experiencedPlayers[n])}
-    else if n % 3 == 1 {teamDragons.append(experiencedPlayers[n])}
-    else {teamRaptors.append(experiencedPlayers[n])}
-    n+=1
-    } while n < experiencedPlayers.count
+//Restrucure teams such that the average heights are within 1.5
 
-n = 0
-
-repeat {
-    if n % 3 == 0 {teamSharks.append(inexperiencedPlayers[n])}
-    else if n % 3 == 1 {teamDragons.append(inexperiencedPlayers[n])}
-    else {teamRaptors.append(inexperiencedPlayers[n])}
-    n+=1
-    } while n < inexperiencedPlayers.count
-
-//Calculate average height of each team
-
-let numberOfPlayersPerTeam : Double = Double ((teamSharks.count + teamDragons.count + teamRaptors.count)/3)
-
-var teamSharksHeight : [Int] = []
-var teamDragonsHeight : [Int] = []
-var teamRaptorsHeight : [Int] = []
+let numberOfPlayersPerTeam : Double = Double ((teamSharks[0].count + teamSharks[1].count + teamDragons[0].count + teamDragons[1].count + teamRaptors[0].count + teamRaptors[1].count)/3)
 
 var teamSharksTotalHeight : Double = 0
 var teamDragonsTotalHeight : Double = 0
 var teamRaptorsTotalHeight : Double = 0
 
-for player in teamSharks {
-    let a : String? = playerDictionaryHeight[player]
-    let b : Double? = Double(a!)
-    teamSharksTotalHeight = teamSharksTotalHeight + b!
-}
-
-for player in teamDragons {
-    let c : String? = playerDictionaryHeight[player]
-    let d : Double? = Double(c!)
-    teamDragonsTotalHeight = teamDragonsTotalHeight + d!
-}
-
-for player in teamRaptors {
-    let e : String? = playerDictionaryHeight[player]
-    let f : Double? = Double(e!)
-    teamRaptorsTotalHeight = teamRaptorsTotalHeight + f!
-}
-
-//Restrucure teams such that the average heights are within 1.5
-
 var constraintSatisfied : Int = 0
 
 while constraintSatisfied < 1 {
 
-    teamSharks.append(teamDragons[0])
-    teamDragons.append(teamRaptors[0])
-    teamRaptors.append(teamSharks[0])
-
-    teamSharks.remove(at:0)
-    teamDragons.remove(at:0)
-    teamRaptors.remove(at:0)
-
     teamSharksTotalHeight=0
     teamDragonsTotalHeight=0
     teamRaptorsTotalHeight=0
+    
+    for number in 0..<teamSharks.count {
+         for index in 0..<teamSharks[number].count {
+             let playerHeight : Int? = teamSharks[number][index]["height"] as? Int
+             let playerHeightasDouble : Double? = Double(playerHeight!)
+             teamSharksTotalHeight = teamSharksTotalHeight + playerHeightasDouble!
+        }
+     }
+ 
+     for number in 0..<teamDragons.count {
+         for index in 0..<teamDragons[number].count {
+             let playerHeight : Int? = teamDragons[number][index]["height"] as? Int
+             let playerHeightasDouble : Double? = Double(playerHeight!)
+             teamDragonsTotalHeight = teamDragonsTotalHeight + playerHeightasDouble!
+         }
+     }
+ 
+    for number in 0..<teamRaptors.count {
+         for index in 0..<teamRaptors[number].count {
+             let playerHeight : Int? = teamRaptors[number][index]["height"] as? Int
+             let playerHeightasDouble : Double? = Double(playerHeight!)
+             teamRaptorsTotalHeight = teamRaptorsTotalHeight + playerHeightasDouble!
+         }
+     }
+ 
+    if (teamSharksTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam){
+        
+        constraintSatisfied = 0
+        
+        teamSharks[0].append(teamDragons[0][0])
+        teamDragons[0].append(teamRaptors[0][0])
+        teamRaptors[0].append(teamSharks[0][0])
+        
+        teamSharks[0].remove(at:0)
+        teamDragons[0].remove(at:0)
+        teamRaptors[0].remove(at:0)
+        
+        }
+    
+    else {constraintSatisfied = 1}
 
-    for player in teamSharks {
-        let g : String? = playerDictionaryHeight[player]
-        let h : Double? = Double(g!)
-        teamSharksTotalHeight = teamSharksTotalHeight + h!
     }
-    
-    for player in teamDragons {
-        let i : String? = playerDictionaryHeight[player]
-        let j : Double? = Double(i!)
-        teamDragonsTotalHeight = teamDragonsTotalHeight + j!
-    }
-    
-    for player in teamRaptors {
-        let k : String? = playerDictionaryHeight[player]
-        let l : Double? = Double(k!)
-        teamRaptorsTotalHeight = teamRaptorsTotalHeight + l!
-    }
-
-    
-    if (teamSharksTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) < (-1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamSharksTotalHeight-teamRaptorsTotalHeight) > (1.5*numberOfPlayersPerTeam) || (teamRaptorsTotalHeight-teamDragonsTotalHeight) > (1.5*numberOfPlayersPerTeam) {constraintSatisfied = 0}
-    else { constraintSatisfied = 1}
-}
 
 //Print average height of the players of each team
 
@@ -183,17 +145,23 @@ func lettergeneratorfor(player: String!, guardians: String!, teamName: String!, 
     return letter
 }
 
-for player in teamSharks {
-    let guardians = playerDictionaryGuardians[player]
-    lettergeneratorfor(player : player, guardians: guardians, teamName: "Sharks",teamPracticeDateAndTime : "3pm on 17 March")
-}
+ for number in 0..<teamSharks.count {
+    for index in 0..<teamSharks[number].count {
+        lettergeneratorfor(player : teamSharks[number][index]["name"] as! String, guardians: teamSharks[number][index]["guardians"] as! String, teamName: "Sharks",teamPracticeDateAndTime : "3pm on 17 March")
+    }
+ }
 
-for player in teamDragons {
-    let guardians = playerDictionaryGuardians[player]
-    lettergeneratorfor(player : player, guardians: guardians, teamName: "Dragons",teamPracticeDateAndTime : "1pm on 17 March")
-}
+ for number in 0..<teamDragons.count {
+    for index in 0..<teamDragons[number].count {
+        lettergeneratorfor(player : teamDragons[number][index]["name"] as! String, guardians: teamDragons[number][index]["guardians"] as! String, teamName: "Dragons",teamPracticeDateAndTime : "1pm on 17 March")
+    }
+ }
+ 
+ for number in 0..<teamRaptors.count {
+    for index in 0..<teamRaptors[number].count {
+        lettergeneratorfor(player : teamRaptors[number][index]["name"] as! String, guardians: teamRaptors[number][index]["guardians"] as! String, teamName: "Raptors",teamPracticeDateAndTime : "1pm on 18 March")
+    }
+ }
+ 
 
-for player in teamRaptors {
-    let guardians = playerDictionaryGuardians[player]
-    lettergeneratorfor(player : player, guardians: guardians, teamName: "Raptors",teamPracticeDateAndTime : "1pm on 18 March")
-}
+
